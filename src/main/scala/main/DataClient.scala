@@ -41,8 +41,24 @@ class DataClient {
       None
     }
     else {
-      Some(onlyRelevantStops.filter(_._2.isAfter(currentTime)).head._3)
+      findLineName(onlyRelevantStops.filter(_._2.isAfter(currentTime)).head._3)
     }
+  }
+
+
+
+  private val linesFromCsv = Source.fromFile("./data/lines.csv").getLines().drop(1)
+
+  private def lines = linesFromCsv.flatMap(
+    response => response.split(",") match {
+      case Array(lineId, lineName) => Some(lineId -> lineName)
+      case _ => None
+    }
+  ).toMap
+
+  private def findLineName(lineId: String) = {
+    lines.get(lineId)
+
   }
 
 

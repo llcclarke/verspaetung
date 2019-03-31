@@ -57,11 +57,11 @@ use example: ```localhost:8081/arrivals/0```
 * This currently assumes early vehicles are also delayed.
 
 **Next Arrivals**
-* Only returns line number at the moment
 * Doesn't take into account delays yet - only what is next due on the schedule
 * Needs better error handling, currently only assumes nothing is due, not that stop may not exist
 * Only one vehicle can arrive next
 * Potentially extendable to take time given
+* Requests should only allow Integers 
 
 **Vehicle Location**
 * Not built due to lack of time - but thoughts include:

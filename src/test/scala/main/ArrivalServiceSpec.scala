@@ -25,7 +25,7 @@ class ArrivalServiceSpec extends Specification with Mockito {
       dataClient.getArrivals("4", currentTime) returns  Some("200")
       val actualResult = arrivalService.getArrivals("4", currentTime)
 
-      Await.result(actualResult.apply(request)).getContentString() ==== "200"
+      Await.result(actualResult.apply(request)).getContentString() ==== "{\"lineName\":\"200\"}"
       Await.result(actualResult.apply(request)).statusCode ==== 200
 
   }
