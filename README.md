@@ -47,6 +47,7 @@ use example: ```localhost:8081/arrivals/0```
 **General**
 * There is only one of every vehicle, and each vehicle only has one route and timetable
 * Architecture needs to be improved from one folder structure
+
 * Current time should come from request ideally 
 
 **Delays:**   
@@ -60,6 +61,7 @@ use example: ```localhost:8081/arrivals/0```
 * Needs better error handling, currently only assumes nothing is due, not that stop may not exist
 * Only one vehicle can arrive next
 * Requests should only allow Ints 
+
 
 **Vehicle Location**
 * Not built due to lack of time - but thoughts include:
