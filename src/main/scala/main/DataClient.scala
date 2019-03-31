@@ -21,8 +21,8 @@ class DataClient {
 
   def getDelays(routeName: String): Option[String] = delays.get(routeName)
 
-
   private val arrivalsFromCsv = Source.fromFile("./data/times.csv").getLines().drop(1)
+
 
 
   private def arrivals = arrivalsFromCsv.flatMap(

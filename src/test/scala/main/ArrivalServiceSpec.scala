@@ -20,7 +20,7 @@ class ArrivalServiceSpec extends Specification with Mockito {
 
   }
 
-  "when stop has a vehicle due it returns 200 and line number" in new Context {
+  "when stop has a vehicle due should return a 200 status code and content string indicates  line number" in new Context {
 
       dataClient.getArrivals("4", currentTime) returns  Some("200")
       val actualResult = arrivalService.getArrivals("4", currentTime)

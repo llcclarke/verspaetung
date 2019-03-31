@@ -42,13 +42,12 @@ use example: ```localhost:8081/arrivals/0```
 
 
 
-##Assumptions and extensions
+##Assumptions and extensions##
 
 **General**
 * There is only one of every vehicle, and each vehicle only has one route and timetable
 * Architecture needs to be improved from one folder structure
-* Data client currently untested
-* Current time should come from request
+* Current time should come from request ideally 
 
 **Delays:**   
 
@@ -60,11 +59,10 @@ use example: ```localhost:8081/arrivals/0```
 * Doesn't take into account delays yet - only what is next due on the schedule
 * Needs better error handling, currently only assumes nothing is due, not that stop may not exist
 * Only one vehicle can arrive next
-* Potentially extendable to take time given
-* Requests should only allow Integers 
+* Requests should only allow Ints 
 
 **Vehicle Location**
 * Not built due to lack of time - but thoughts include:
+    * mvp: only recognise vehicles that should be at a stop given the timetable
     * Needs to take into account delays
-    * mvp: only recognise vehicles that are at stops
-    * Vehicles appear to move can only move 1 square at a time, both horizontally, vertically and diagonally. 
+    * Vehicles appear to move 1 square per minute, both horizontally, vertically and diagonally. 
