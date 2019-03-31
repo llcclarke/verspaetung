@@ -24,10 +24,47 @@ Build a web API which provides the following features:
 
 Endpoints should be available via port 8081
 
-##Assumptions
+## Use
+
+**To Run** :
+```sbt run main```
+
+**To Test** :
+```sbt test```
+
+**Available endpoints:
+
+```/delays/{lineName}```   
+use example:  ```localhost:8081/delays/200``` 
+   
+```/arrivals/{stopNumber}```   
+use example: ```localhost:8081/arrivals/0```    
+
+
+
+##Assumptions and extensions
+
+**General**
+* There is only one of every vehicle, and each vehicle only has one route and timetable
+* Architecture needs to be improved from one folder structure
+* Data client currently untested
+* Current time should come from request
 
 **Delays:**   
 
 * All Vehicles in existence are represented in the delay csv. 
 * A Vehicle is delay if the delay is more than 1 (with the time assumed to be minutes) 
-* This currently does not handle early Vehicles. 
+* This currently assumes early vehicles are also delayed.
+
+**Next Arrivals**
+* Only returns line number at the moment
+* Doesn't take into account delays yet - only what is next due on the schedule
+* Needs better error handling, currently only assumes nothing is due, not that stop may not exist
+* Only one vehicle can arrive next
+* Potentially extendable to take time given
+
+**Vehicle Location**
+* Not built due to lack of time - but thoughts include:
+    * Needs to take into account delays
+    * mvp: only recognise vehicles that are at stops
+    * Vehicles appear to move can only move 1 square at a time, both horizontally, vertically and diagonally. 

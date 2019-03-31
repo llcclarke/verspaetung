@@ -8,16 +8,21 @@ import com.twitter.finagle.http.Request
 import com.twitter.finagle.http.path.{Root, _}
 import com.twitter.finagle.http.service.RoutingService
 import com.twitter.util.Await
+import org.joda.time.LocalTime
 
 object Server extends App {
 
   val dataClient = new DataClient
 
   val delayService = new DelayService(dataClient)
+  val arrivalService = new ArrivalService(dataClient)
+  val currentTime = new LocalTime()
+
 
 
   val router = RoutingService.byPathObject[Request] {
     case Root / "delays" / line => delayService.getDelays(line)
+    case Root / "arrivals" / stopId => arrivalService.getArrivals(stopId, currentTime)
   }
 
   val server = ServerBuilder()

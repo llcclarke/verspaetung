@@ -1,17 +1,50 @@
 package main
 
+import org.joda.time.LocalTime
+import org.joda.time.format.DateTimeFormat
+
 import scala.io.Source
 
 
 class DataClient {
 
-  val delaysFromCsv = Source.fromFile("./data/delays.csv").getLines().drop(1)
+  val fmt = DateTimeFormat.forPattern("HH:mm:ss")
 
-  val delays = delaysFromCsv.flatMap(response => response.split(",") match {
-    case Array(lineName, delayInMinutes) => Some(lineName -> delayInMinutes)
-    case _ => None
-  }).toMap
+
+  private val delaysFromCsv = Source.fromFile("./data/delays.csv").getLines().drop(1)
+
+  private val delays = delaysFromCsv.flatMap(
+    response => response.split(",") match {
+      case Array(lineName, delayInMinutes) => Some(lineName -> delayInMinutes)
+      case _ => None
+    }).toMap
 
   def getDelays(routeName: String): Option[String] = delays.get(routeName)
 
+
+  private val arrivalsFromCsv = Source.fromFile("./data/times.csv").getLines().drop(1)
+
+
+  private def arrivals = arrivalsFromCsv.flatMap(
+    response => response.split(",") match {
+      case Array(lineId, stopId, times) => Some((stopId, fmt.parseLocalTime(times), lineId))
+      case _ => None
+    }
+  ).toList
+
+  def getArrivals(stopId: String, currentTime: LocalTime): Option[String] = {
+
+    val onlyRelevantStops =
+      arrivals.filter(_._1 == stopId)
+
+    if (onlyRelevantStops.filter(_._2.isAfter(currentTime)).isEmpty) {
+      None
+    }
+    else {
+      Some(onlyRelevantStops.filter(_._2.isAfter(currentTime)).head._3)
+    }
+  }
+
+
 }
+

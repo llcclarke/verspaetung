@@ -17,7 +17,7 @@ class DelayServiceSpec extends Specification with Mockito {
 
   }
 
-  "when line has a delay should return a 200 status code" in new Context {
+  "when line has a delay should return a 200 status code and content string indicates a delay" in new Context {
 
     dataClient.getDelays("200") returns Some("2")
     val actualResult = delayService.getDelays("200")
@@ -27,7 +27,7 @@ class DelayServiceSpec extends Specification with Mockito {
     assert(Await.result(actualResult.apply(request)).statusCode ==== 200)
   }
 
-  "when line has no delay should return a 200 status code" in new Context {
+  "when line has no delay should return a 200 status code and content string indicates no delay" in new Context {
 
     dataClient.getDelays("201") returns Some("0")
     val actualResult = delayService.getDelays("201")
